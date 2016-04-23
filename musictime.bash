@@ -3,13 +3,16 @@
 
 use_playlist()
 {
+
   if [ "$2" = "" ] 
   then
-  eval   path='~/Music/'$1"/*"
+  eval   path='~/Music/'$1
   else
-    path=$2$1"/*"
+    path=$2$1
   fi
-for file in $(ls -d $(find $path))
+  find $path -name "* *" -d | rename 's/ /_/g'
+  find $path -name "* *" -f | rename 's/ /_/g'
+  for file in $(ls -d $(find $path))
   do
     if [ "$file" != '*.*' ]; then
       cvlc $file
